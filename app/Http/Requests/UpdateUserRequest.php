@@ -21,7 +21,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function rules(): array
     {
-        if($this->method() == 'PUT'){
+        if ($this->method() == 'PUT') {
             return [
                 'nombre' => 'required',
                 'apellido' => 'required',
@@ -39,23 +39,14 @@ class UpdateUserRequest extends FormRequest
         ];
     }
 
-    protected function prepareForValidation(){
-        $data = [];
-        if($this->has('nombre')){
-            // $this->merge(['name' => $this->nombre]);
-            $data['name'] = $this->nombre;
-        }else if($this->has('apellido')){
-            // $this->merge(['surname' => $this->apellido]);
-            $data['surname'] = $this->apellido;
+    protected function prepareForValidation()
+    {
+        if ($this->has('nombre')) {
+            $this->merge(['name' => $this->nombre]);
+        } else if ($this->has('apellido')) {
+            $this->merge(['surname' => $this->apellido]);
+        } else if ($this->has('tipo_id')) {
+            $this->merge(['document_type_id' => $this->tipo_id]);
         }
-        // else if($this->has('contraseña')){
-        //     // $this->merge(['password' => $this->contraseña]);
-        //     $data['password'] = $this->contraseña;
-        // }
-        else if($this->has('tipo_id')){
-            // $this->merge(['document_type_id' => $this->tipo_id]);
-            $data['document_type_id'] = $this->tipo_id;
-        }
-        $this->merge($data);
     }
 }

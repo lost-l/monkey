@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DocumentTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -20,4 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
+Route::apiResource('documents', DocumentTypeController::class)->only('index');
 Route::apiResource('users', UserController::class);
